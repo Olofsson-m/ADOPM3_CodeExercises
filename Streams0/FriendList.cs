@@ -45,8 +45,12 @@ namespace Streams0
         /// <returns></returns>
         public string WriteToDisk(string txtFileName)
         {
-            //Your Code
- 
+            using(Stream s = new FileStream(fname(txtFileName), FileMode.Create))
+            {
+                var writer = new StreamWriter(s);
+                writer.Write(this.ToString());
+                writer.Flush();
+            }
             return fname(txtFileName);
         }
 
@@ -57,9 +61,23 @@ namespace Streams0
         /// <returns></returns>
         public string WriteToDiskCompressed(string zipFileName)
         {
-            //Your Code
+            string textContent = this.ToString();
+            string zipPath = fname(zipFileName);
+            
+            using (FileStream zipStream = new FileStream(zipPath, FileMode.Create))
+            {
+                using (ZipArchive archive = new ZipArchive(zipStream, ZipArchiveMode.Create))
+                {
+                    ZipArchiveEntry entry = archive.CreateEntry("friends.txt");
+                    using (StreamWriter writer = new StreamWriter(entry.Open()))
+                    {
+                        writer.Write(textContent);
+                        writer.Flush();
+                    }
+                }
+            }
 
-            return fname(zipFileName);
+            return zipPath;
         }
 
         /// <summary>
@@ -70,13 +88,33 @@ namespace Streams0
         /// <returns></returns>
         public string UncompressToDisk(string zipFileName, string txtFileName)
         {
+            string zipPath = fname(zipFileName);
+            string txtPath = fname(txtFileName);
+            
             //read from zip stream
-            //Your Code
+            using (FileStream zipStream = new FileStream(zipPath, FileMode.Open))
+            {
+                using (ZipArchive archive = new ZipArchive(zipStream, ZipArchiveMode.Read))
+                {
+                    ZipArchiveEntry entry = archive.Entries[0];
+                    using (StreamReader reader = new StreamReader(entry.Open()))
+                    {
+                        string content = reader.ReadToEnd();
+                        
+                        //write to text stream
+                        using (FileStream txtStream = new FileStream(txtPath, FileMode.Create))
+                        {
+                            using (StreamWriter writer = new StreamWriter(txtStream))
+                            {
+                                writer.Write(content);
+                                writer.Flush();
+                            }
+                        }
+                    }
+                }
+            }
 
-            //write to text stream
-            //Your Code
-
-            return fname(txtFileName);
+            return txtPath;
         }
 
         static string fname(string name)
