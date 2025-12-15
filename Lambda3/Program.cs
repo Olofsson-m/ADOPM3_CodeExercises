@@ -55,8 +55,8 @@ namespace Lambda3
             // WRONG: All lambdas will capture the SAME variable 'i'
             for (int i = 0; i < 5; i++)
             {
-                int si = 
-                actions.Add(() => Console.WriteLine($"Value: {i}"));
+                int si = i;
+                actions.Add(() => Console.WriteLine($"Value: {si}"));
             }
 
             Console.WriteLine("\nExecuting deferred actions:");
