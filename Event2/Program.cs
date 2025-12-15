@@ -1,4 +1,6 @@
-﻿namespace Event2
+﻿using System.Runtime.CompilerServices;
+
+namespace Event2
 {
     internal class Program
     {
@@ -6,6 +8,23 @@
         {
             public EventHandler<T> ItemAdded;
             public EventHandler<T> ItemRemoved;
+
+            public new void Add(T item)
+            {
+                base.Add(item);
+
+                ItemAdded.Invoke(this, item);
+            }
+
+            public new bool Remove(T item)
+            {
+                bool removed = base.Remove(item);
+                if (removed)
+                {
+                    ItemRemoved.Invoke(this, item);
+                }
+                return removed;
+            }
         }
 
         static void Main(string[] args)

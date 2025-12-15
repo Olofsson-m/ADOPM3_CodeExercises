@@ -27,28 +27,28 @@ namespace Lambda0
             #region Exercise 2
             Console.WriteLine("Delegates I");
             Console.WriteLine($"\n{nameof(numbers)} output by delegate");
-            Array.ForEach(numbers, myInt=> Console.WriteLine(myInt));
+            Array.ForEach(numbers, myInt => Console.WriteLine(myInt));
 
 
             Console.WriteLine($"\n{nameof(cities)} output by delegate");
-            Array.ForEach(cities, WriteString);
+            Array.ForEach(cities, myString => Console.WriteLine(myString));
 
-            Console.WriteLine($"\n{nameof(numbers)} output by generic delegate");
-            Array.ForEach(numbers, WriteItem<int>);
-            Console.WriteLine($"\n{nameof(cities)} output by generic delegate");
-            Array.ForEach(cities, WriteItem<string>);
+            // Console.WriteLine($"\n{nameof(numbers)} output by generic delegate");
+            // Array.ForEach(numbers, WriteItem<int>);
+            // Console.WriteLine($"\n{nameof(cities)} output by generic delegate");
+            // Array.ForEach(cities, WriteItem<string>);
 
             Console.WriteLine("\nDelegates II");
-            var evenlist = Array.FindAll(numbers, IsEven);
-            Array.ForEach(evenlist, WriteItem);
+            var evenlist = Array.FindAll(numbers, n => n % 2 == 0);
+            Array.ForEach(evenlist, e => Console.WriteLine(e));
 
             Console.WriteLine();
-            var temp = Array.FindAll(cities, IsLongName);
-            Array.ForEach(temp, WriteItem);
+            var temp = Array.FindAll(cities, c => c.Length > 6);
+            Array.ForEach(temp, longer => System.Console.WriteLine(longer));
 
             Console.WriteLine("\nDelegates III");
-            Console.WriteLine(Array.Find(numbers, IsLargeNumber));
-            Console.WriteLine(Array.FindLast(cities, IsLongestName));
+            Console.WriteLine(Array.Find(numbers, n => n > 500));
+            Console.WriteLine(Array.FindLast(cities, c => c.Length > 8));
             #endregion
         }
 
@@ -68,23 +68,23 @@ namespace Lambda0
         #endregion
 
         #region Delegates declarations
-        static void WriteInts(int myInt)
-        {
-            Console.WriteLine(myInt);
-        }
-        static void WriteString(string myString)
-        {
-            Console.WriteLine(myString);
-        }
-        static void WriteItem<T>(T item)
-        {
-            Console.WriteLine(item);
-        }
-        public static bool IsEven(int item) => item % 2 == 0;
-        public static bool IsLongName(string item) => item.Length > 6;
+        // static void WriteInts(int myInt)
+        // {
+        //     Console.WriteLine(myInt);
+        // }
+        // static void WriteString(string myString)
+        // {
+        //     Console.WriteLine(myString);
+        // }
+        // static void WriteItem<T>(T item)
+        // {
+        //     Console.WriteLine(item);
+        // }
+        // public static bool IsEven(int item) => item % 2 == 0;
+        // public static bool IsLongName(string item) => item.Length > 6;
 
-        static bool IsLargeNumber(int item) => item > 500;
-        static bool IsLongestName(string item) => item.Length > 8;
+        // static bool IsLargeNumber(int item) => item > 500;
+        // static bool IsLongestName(string item) => item.Length > 8;
         #endregion
 
     }

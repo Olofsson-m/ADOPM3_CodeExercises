@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http.Features;
 
 namespace Delegate1
 {
@@ -24,16 +25,33 @@ namespace Delegate1
 
             #region Exercises 1-4
             Console.WriteLine("Delegates I Exercises");
+            numbers.ForEach(Print<int>);
+            cities.ForEach(Print<string>);
             #endregion
 
             #region Exercises 5-6
             Console.WriteLine("\nDelegates II Exercises");
+            numbers.FindAll(EvenNum).ForEach(Print<int>);
+           
+            cities.FindAll(NumberofLetters).ForEach(Print<string>);
             #endregion
 
             #region Exercises 7-8
             Console.WriteLine("\nDelegates III Exercises");
+            System.Console.WriteLine(numbers.Find(MoreThan500));
+            System.Console.WriteLine(cities.FindLast(LastInLength));
+
             #endregion
         }
+
+        static void Print<T>(T item) => System.Console.WriteLine(item);
+        public static bool EvenNum(int i ) => i % 2 == 0;
+
+        public static bool NumberofLetters(string c) => c.Length > 6;
+
+        public static bool MoreThan500(int i) => i > 500;
+
+        public static bool LastInLength(string c) => c.Length > 8;
     }
 }
 //Exercises

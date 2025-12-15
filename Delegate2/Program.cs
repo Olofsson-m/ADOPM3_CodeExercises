@@ -9,11 +9,10 @@ namespace Delegate2 // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
+            var friends = FriendList.Factory.CreateRandom(100);
             var johnOnly = FriendList.Factory.CreateRandom(100, AllJohn);
             var gavleOnly = FriendList.Factory.CreateRandom(100, AllGavle);
 
-            var friends = FriendList.Factory.CreateRandom(100);
- 
             Console.WriteLine("\nHello to Finland");
             friends.SayHello(HelloFinland);
 
@@ -33,12 +32,25 @@ namespace Delegate2 // Note: actual namespace depends on the project name.
 
         public static void HelloFinland(Friend friend)
         {
+            if(friend.Address.Country == "Finland")
+            {
+                System.Console.WriteLine($"finlandia!! {friend}");
+            }
+
         }
         public static void HelloGavle(Friend friend)
         {
+            if(friend.Address.City == "Gavle")
+            {
+                System.Console.WriteLine($"{friend.FirstName} From {friend.Address.City}");
+            }
         }
         public static void HelloScandinavia(Friend friend)
         {
+            if(friend.Address.Country == "Sweden" || friend.Address.Country == "Norway")
+            {
+                System.Console.WriteLine($"{friend.Address.Country}");
+            }
         }
 
 

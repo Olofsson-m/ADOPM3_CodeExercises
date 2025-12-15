@@ -2,6 +2,8 @@
 //Console.WriteLine("Hello, World!");
 
 using System;
+using Microsoft.AspNetCore.Http;
+using Seido.Utilities.SeedGenerator;
 
 namespace Event1 // Note: actual namespace depends on the project name.
 {
@@ -11,17 +13,20 @@ namespace Event1 // Note: actual namespace depends on the project name.
         {
           Console.WriteLine("\nHuge friendlist");
           
-          //Create an instance of FriendList
-          //Your code
+          var friendList = new FriendList();
 
-          //Assign your event handler to FriendList 
-          // Your code
-
-          //Seed the instance of friendlist with 1_000_000 friends
+          friendList.CreationProgress += EventHandler;
+          
+          friendList.Seed(100000);
 
         }
 
         //Declare your Eventhandler
+        
+        public static void EventHandler(object fl, int sum)
+        {
+          System.Console.WriteLine(sum);            
+        }
         //Your code
     }
 }

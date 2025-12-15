@@ -41,19 +41,32 @@ namespace Serialization0
 
         public void SerializeXml(string xmlFileName)
         {
-            //Your Code
-
+            XmlSerializer xs = new XmlSerializer(typeof(List<Friend>));
+            using (Stream s = File.Create(fname(xmlFileName)))
+            {
+                xs.Serialize(s, myFriends);
+            }
         }
         public static FriendList DeSerializeXml(string xmlFileName)
         {
-            //Your Code
-            return null;
+            var xs = new XmlSerializer(typeof(List<Friend>));
+            using (Stream s = File.OpenRead(fname(xmlFileName)))
+            {
+                var friends = (List<Friend>)xs.Deserialize(s);
+                var friendList = new FriendList();
+                friendList.myFriends = friends;
+                return friendList;
+            }
         }
         public void SerializeJson(string jsonFileName)
         {
-            //Your Code
-
-
+            var option = new JsonSerializerOptions
+            {
+              WriteIndented = true  
+            };
+            var sjson = JsonSerializer.Serialize(this, option);
+            File.WriteAllText(fname(jsonFileName), sjson);
+            
         }
         public static FriendList DeSerializeJson(string jsonFileName)
         {
