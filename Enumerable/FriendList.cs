@@ -10,9 +10,10 @@ namespace IEnumerable
     public class FriendList
     {
 
-        private  List<Friend> myFriends = new List<Friend>();
+        private List<Friend> myFriends = new List<Friend>();
         public Friend this[int idx]=> myFriends[idx];
-
+        public int Count => myFriends.Count;
+        public List<Friend> fl => myFriends;
         public override string ToString()
         {
             string sRet = "";
