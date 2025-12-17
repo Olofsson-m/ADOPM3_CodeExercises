@@ -102,6 +102,5 @@ namespace Lambda3
 
 /* Exercise
 1. Use the debugger to run through each example and observe how variable capture works.
-1. Modify the SimpleVariableCapture method to demonstrate capturing a variable of a different type (e.g., an integer).
-2. In the WrongLoopCapture method, change the loop to use a foreach loop
+2. Modify the SimpleVariableCapture method to demonstrate capturing a variable of a different type (e.g., an integer).
 */

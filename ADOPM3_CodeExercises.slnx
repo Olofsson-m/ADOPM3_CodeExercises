@@ -3,6 +3,7 @@
   <Project Path="Delegate1\Delegate1.csproj" />
   <Project Path="Delegate2\Delegate2.csproj" />
   <Project Path="Delegate3\Delegate3.csproj" />
+  <Project Path="Enumerable1/Enumerable1.csproj" />
   <Project Path="Enumerable\IEnumerable.csproj" />
   <Project Path="ErrorHandling\ErrorHandling.csproj" />
   <Project Path="Event1\Event1.csproj" />
