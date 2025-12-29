@@ -3,6 +3,10 @@ using Models.Employees;
 using Models.Employees.Interfaces;
 using Seido.Utilities.SeedGenerator;
 
+using Models.Employees;
+using Models.Employees.Interfaces;
+using Seido.Utilities.SeedGenerator;
+
 Console.WriteLine("Hello, World!");
 var seeder = new SeedGenerator();
 var employeeList = new EmployeeList().Seed(seeder);
