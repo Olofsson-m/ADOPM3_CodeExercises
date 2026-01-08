@@ -12,17 +12,29 @@ namespace Task0
 
             //Create Task t1
             //Your Code
-
+            var t1 = Task.Run(() => Hello(5, "Femman", 2000));
+            //t1.Wait();
             //Create Task t2
             //Your Code
-
+            var t2 = Task.Run(() => Hello(10, "Tian", 1000));
+            //t2.Wait();
             //Create Task t3
             //Your Code
+            var t3 = Task.Run(() => Hello(15, "Femtionan", 500));
 
-            //Task.WaitAll(t1, t2, t3);
+            Task.WaitAll(t1, t2, t3);
 
             watch.Stop();
             Console.WriteLine($"Main terminated. Execution time: {watch.ElapsedMilliseconds}ms");
+        }
+
+        static void Hello(int num, string nameof, int delay)
+        {
+            for (int i = 0; i < num; i++)
+            {
+                System.Console.WriteLine($"From: {nameof} Hello: {i+1}");
+                Thread.Sleep(delay);
+            }
         }
     }
 }

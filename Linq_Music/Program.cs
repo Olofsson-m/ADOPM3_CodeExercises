@@ -21,20 +21,42 @@ Console.WriteLine("Hello, Linq Music!");
     // Expected: Filter by Genre == MusicGenre.Rock, project to group names
     System.Console.WriteLine("Q1: All Rock music groups:");
     // TODO: var rockGroups = ...
-    
+    var rockGroups = musicgroups.Where(g => g.Genre == MusicGenre.Rock)
+                                .Select(g => g.Name);
+
+    foreach (var item in rockGroups)
+    {
+        System.Console.WriteLine(item);
+    }
     
     // Q2: Get the names of all albums released after 2010
     // Use: SelectMany, Where, Select
     // Expected: Flatten all albums, filter by year, project to album names
     System.Console.WriteLine("\nQ2: Albums released after 2010:");
     // TODO: var recentAlbums = ...
+    var recentAlbums = musicgroups.SelectMany(g => g.Albums)
+                                .Where(g => g.ReleaseYear > 2010)
+                                .Select(g => g.Name);
+
+    foreach (var item in recentAlbums)
+    {
+        System.Console.WriteLine(item);
+    }
     
     
     // Q3: Find the first 5 music groups ordered by establishment year
-    // Use: OrderBy, Take
+    // Use: OrderBy, Take\ 
     // Expected: Sort by EstablishedYear ascending, take first 5
     System.Console.WriteLine("\nQ3: First 5 oldest music groups:");
     // TODO: var oldestGroups = ...
+
+    var oldestGroups = musicgroups.OrderBy(g => g.EstablishedYear)
+                                    .Take(5)
+                                    .Select(g => g);
+    foreach (var item in oldestGroups)
+    {
+        System.Console.WriteLine($"Name: {item.Name} | EST: {item.EstablishedYear}");
+    }
     
 
     // MEDIUM: Aggregation & Grouping (Questions 4-6)
@@ -44,22 +66,36 @@ Console.WriteLine("Hello, Linq Music!");
     // Expected: Group by Genre, sum CopiesSold from all albums in each group
     System.Console.WriteLine("\nQ4: Total copies sold by genre:");
     // TODO: var copiesByGenre = ...
+    var copiesByGenre = musicgroups.GroupBy(g => g.Genre)
+                                    .Select(g => new { 
+                                    Genre = g.Key,
+                                    TotalCopies = g.SelectMany(x => x.Albums).Sum(a => a.CopiesSold) });
     
-    
+    foreach (var item in copiesByGenre)
+    {
+        System.Console.WriteLine(item);
+    }
+
     // Q5: Find all music groups that have more than 3 artists
     // Use: Where, Count
     // Expected: Filter groups where Artists.Count > 3
     System.Console.WriteLine("\nQ5: Groups with more than 3 artists:");
     // TODO: var largeGroups = ...
-    
+    var largeGroups = musicgroups.Where(g => g.Artists.Count > 3);
+
+    foreach (var item in largeGroups)
+    {
+        System.Console.WriteLine($"Group Name: {item.Name} Number of artist: {item.Artists.Count}");
+    }
     
     // Q6: Get the average number of tracks per album for each music group
     // Use: Select, SelectMany, Average
     // Expected: For each group, calculate average track count across their albums
-    System.Console.WriteLine("\nQ6: Average tracks per album by group:");
+    Console.WriteLine("\nQ6: Average tracks per album by group:");
     // TODO: var avgTracks = ...
-    
+    var avgTracks = musicgroups.SelectMany(g => g.Albums).Select(g => g.Tracks.Count).Average(g => g);
 
+    Console.WriteLine(avgTracks);
     // ADVANCED: Complex Queries & Multiple Operations (Questions 7-10)
     
     // Q7: Find artists who appear in Jazz groups with albums that sold over 500,000 copies
